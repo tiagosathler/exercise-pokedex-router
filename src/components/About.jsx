@@ -9,9 +9,15 @@ const About = () => (
       <p> One can filter Pokémons by type, and see more details for each one of them </p>
       <img
         className="pokedex-image"
-        src="https://cdn.bulbagarden.net/upload/thumb/8/86/Gen_I_Pok%C3%A9dex.png/800px-Gen_I_Pok%C3%A9dex.png"
+        src="https://cdn2.bulbagarden.net/upload/4/4b/Pok%C3%A9dex_logo.png"
         alt="Pokédex"
       />
+      <br />
+      <a
+        href="https://bulbapedia.bulbagarden.net/wiki/Pok%C3%A9dex"
+        target="_blank"
+        rel="noreferrer noopener"
+        >Pokédex</a>
     </section>
   </section>
 );
