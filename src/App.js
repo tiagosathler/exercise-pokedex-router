@@ -37,55 +37,9 @@ class App extends React.Component {
     this.setState(({ isPokemonFavoriteById: App.setIsPokemonFavoriteById() }));
   }
 
-  renderPokedex() {
-    const { isPokemonFavoriteById } = this.state;
-
-    return (
-      <Pokedex
-        pokemons={pokemons}
-        isPokemonFavoriteById={isPokemonFavoriteById}
-      />
-    );
-  }
-
-  renderPokemonDetails(match) {
-    const { isPokemonFavoriteById } = this.state;
-
-    return (
-      <PokemonDetails
-        isPokemonFavoriteById={isPokemonFavoriteById}
-        match={match}
-        pokemons={pokemons}
-        onUpdateFavoritePokemons={(pokemonId, isFavorite) => (
-          this.onUpdateFavoritePokemons(pokemonId, isFavorite)
-        )}
-      />
-    );
-  }
-
-  renderRoutes() {
+  render() {
     const { isPokemonFavoriteById } = this.state;
     const favoritePokemons = pokemons.filter(({ id }) => isPokemonFavoriteById[id]);
-
-    return (
-      <Switch>
-        <Route
-          exact
-          path="/"
-          render={() => this.renderPokedex()}
-        />
-        <Route
-          path="/pokemons/:id"
-          render={({ match }) => this.renderPokemonDetails(match)}
-        />
-        <Route path="/favorites" render={() => <FavoritePokemons pokemons={favoritePokemons} />} />
-        <Route path="/about" component={About} />
-        <Route component={NotFound} />
-      </Switch>
-    );
-  }
-
-  render() {
     return (
       <div className="App">
         <h1> Pokédex </h1>
@@ -94,7 +48,31 @@ class App extends React.Component {
           <Link className="link" to="/about"> About </Link>
           <Link className="link" to="/favorites"> Favorite Pokémons </Link>
         </nav>
-        {this.renderRoutes()}
+        <Switch>
+          <Route
+            exact
+            path="/"
+            render={() => <Pokedex
+              pokemons={pokemons}
+              isPokemonFavoriteById={isPokemonFavoriteById}
+            />
+            }
+          />
+          <Route
+            path="/pokemons/:id"
+            render={({ match }) => <PokemonDetails
+              isPokemonFavoriteById={isPokemonFavoriteById}
+              match={match}
+              pokemons={pokemons}
+              onUpdateFavoritePokemons={(pokemonId, isFavorite) => (
+                this.onUpdateFavoritePokemons(pokemonId, isFavorite)
+              )}
+            />}
+          />
+          <Route path="/favorites" render={() => <FavoritePokemons pokemons={favoritePokemons} />} />
+          <Route path="/about" component={About} />
+          <Route component={NotFound} />
+        </Switch>
       </div>
     );
   }
